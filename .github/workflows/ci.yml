@@ -39,3 +39,4 @@ jobs:
         run: |
           docker run --rm student-devops-ci-grader help
           docker run --rm student-devops-ci-grader system-info
+          ! docker run --rm student-devops-ci-grader invalid-command
