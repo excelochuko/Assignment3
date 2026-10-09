@@ -54,6 +54,9 @@ run_test "Unknown command returns exit code 2" \
 run_test "Missing port argument returns exit code 2" \
     check_exit_code 2 "$APP" check-port localhost
 
+run_test "Missing host and port return exit code 2" \
+    check_exit_code 2 "$APP" check-port
+
 echo
 echo "Test results: $passed passed, $failed failed."
 
