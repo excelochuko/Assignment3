@@ -1,0 +1,9 @@
+
+services:
+  diagnostic-cli:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: student-devops-ci-grader
+    container_name: diagnostic-cli
+    command: ["help"]

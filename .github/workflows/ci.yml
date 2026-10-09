@@ -1,0 +1,41 @@
+
+name: DevOps CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check Bash syntax
+        run: bash scripts/lint.sh
+
+  test:
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run application tests
+        run: bash tests/test.sh
+
+  docker:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t student-devops-ci-grader .
+
+      - name: Test Docker container
+        run: |
+          docker run --rm student-devops-ci-grader help
+          docker run --rm student-devops-ci-grader system-info
