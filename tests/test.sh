@@ -51,6 +51,9 @@ run_test "Port 65536 returns exit code 2" \
 run_test "Unknown command returns exit code 2" \
     check_exit_code 2 "$APP" unknown-command
 
+run_test "Missing port argument returns exit code 2" \
+    check_exit_code 2 "$APP" check-port localhost
+
 echo
 echo "Test results: $passed passed, $failed failed."
 
@@ -59,3 +62,4 @@ if (( failed > 0 )); then
 fi
 
 echo "All tests passed."
+
