@@ -102,7 +102,14 @@ docker compose run --rm diagnostic-cli help
 
 ## Continuous Integration
 
-The GitHub Actions workflow at `.github/workflows/ci.yml` runs on pushes and pull requests. It validates Bash syntax, runs application tests, and builds and smoke-tests the Docker image.
+The GitHub Actions workflow at `.github/workflows/ci.yml` runs on pushes and pull requests.
+
+It contains three jobs:
+- **validate:** Checks Bash syntax in the application, scripts, and tests.
+- **test:** Runs the automated application tests after validation succeeds.
+- **docker:** Builds the Docker image and tests the help, system-info, and invalid-command behavior.
+
+The jobs run in sequence: `validate` → `test` → `docker`. Each dependent job starts only after its required preceding job succeeds.
 
 ## Assumptions and Limitations
 
